@@ -1,5 +1,6 @@
 import pygame
 from src.get_random import *
+from src.constants import player_speed, player_diagonal_speed, star_count
 
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
@@ -10,12 +11,10 @@ dt = 0
 screen_width = screen.get_width()
 screen_height = screen.get_height()
 player_pos = pygame.Vector2(screen_width / 2, screen_height / 2)
-player_speed = 400
-player_diagonal_speed = player_speed * 0.72
 star_pos = []
 border = [screen_height, 0, 0, screen_width] #[top, bottom, left, right]
 
-for i in range(100):
+for i in range(star_count):
         star_pos.append((get_random(0, screen_width), get_random(0, screen_height)))
 
 while running:
@@ -31,6 +30,10 @@ while running:
     pygame.draw.circle(screen, "red", player_pos, 40)
 
     keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_ESCAPE]:
+        pygame.QUIT
+        running = False
 
     # Calculate movement direction
     dx = 0
