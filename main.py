@@ -1,18 +1,17 @@
 import pygame
 from src.get_random import *
-from src.constants import player_speed, player_diagonal_speed, star_count
+from src.constants import star_count, screen_height, screen_width, screen
+from src.letters import letter
+from src.player import Player
 
 pygame.init()
-screen = pygame.display.set_mode((1920, 1080))
 clock = pygame.time.Clock()
 running = True
 dt = 0
-
-screen_width = screen.get_width()
-screen_height = screen.get_height()
-player_pos = pygame.Vector2(screen_width / 2, screen_height / 2)
 star_pos = []
 border = [screen_height, 0, 0, screen_width] #[top, bottom, left, right]
+
+player = Player()
 
 for i in range(star_count):
         star_pos.append((get_random(0, screen_width), get_random(0, screen_height)))
@@ -27,9 +26,13 @@ while running:
     
     for star in star_pos:
         pygame.draw.circle(screen, "white", star, 4)
-    pygame.draw.circle(screen, "red", player_pos, 40)
+    pygame.draw.circle(screen, player.color, player.pos, player.size)
+
+    pygame.draw.rect(screen, "green", letter)
 
     keys = pygame.key.get_pressed()
+    #To get mouse position
+    #pygame.mouse.get_pos()
 
     if keys[pygame.K_ESCAPE]:
         pygame.QUIT
@@ -41,25 +44,25 @@ while running:
 
     # Horizontal movement
     if keys[pygame.K_a]:
-        dx -= player_speed
+        dx -= player.speed
     elif keys[pygame.K_d]:
-        dx += player_speed
+        dx += player.speed
 
     # Vertical movement
     if keys[pygame.K_w]:
-        dy -= player_speed
+        dy -= player.speed
     elif keys[pygame.K_s]:
-        dy += player_speed
+        dy += player.speed
 
     # Adjust speed for diagonal movement
     if dx != 0 and dy != 0:
-        speed = player_diagonal_speed
+        speed = player.diagonal_speed
     else:
-        speed = player_speed
+        speed = player.speed
 
     # Apply movement
-    player_pos.x += dx * dt * (speed / player_speed)
-    player_pos.y += dy * dt * (speed / player_speed)
+    player.pos.x += dx * dt * (speed / player.speed)
+    player.pos.y += dy * dt * (speed / player.speed)
 
     pygame.display.flip()
 
