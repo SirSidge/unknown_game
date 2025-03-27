@@ -13,8 +13,18 @@ border = [screen_height, 0, 0, screen_width] #[top, bottom, left, right]
 
 player = Player()
 
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 for i in range(star_count):
         star_pos.append((get_random(0, screen_width), get_random(0, screen_height)))
+
+class Letter():
+    def __init__(self):
+        self.letter = alphabet[get_random(0, len(alphabet) - 1)]
+        self.pos = (letter.x, letter.y)
+        self.img = pygame.font.SysFont("Arial", 60).render(self.letter, True, "blue")
+        
+test_letter = Letter()
 
 while running:
     for event in pygame.event.get():
@@ -29,6 +39,8 @@ while running:
     pygame.draw.circle(screen, player.color, player.pos, player.size)
 
     pygame.draw.rect(screen, "green", letter)
+
+    screen.blit(test_letter.img, test_letter.pos)
 
     keys = pygame.key.get_pressed()
     #To get mouse position
