@@ -6,5 +6,6 @@ class Player:
         self.pos = pygame.Vector2(screen_width / 2, screen_height / 2)
         self.color = "red"
         self.size = 40
+        self.radius = self.size / 2
         self.speed = 400
         self.diagonal_speed = self.speed * 0.72
