@@ -1,17 +1,34 @@
 import pygame
-from src.get_random import get_random
-from src.constants import display_height, display_width
 
-letter_height = 50
-letter_width = 50
-alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+from get_random import get_random
+from constants import screen_width, screen_height
 
-letter = pygame.Rect(get_random(0, display_width - letter_width), get_random(0, display_height - letter_height), letter_width, letter_height)
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+letter_size = 40
 
-class Letter():
-    def __init__(self):
-        self.letter = alphabet[get_random(0, len(alphabet) - 1)]
-        self.pos = (letter.x, letter.y)
-        self.size = 60
-        self.radius = self.size / 2
-        self.img = pygame.font.SysFont("Arial", self.size).render(self.letter, True, "blue")
+class Letter(pygame.sprite.Sprite):
+    def __init__(self, color):
+        if hasattr(self, "containers"):
+            super().__init__(self.containers)
+        else:
+            super().__init__()
+        self.letter = self.get_letter()
+        self.color = color
+        self.pos = [get_random(0, screen_width), get_random(0, screen_height)]
+        self.rect = pygame.rect.Rect(self.pos[0], self.pos[1], letter_size, letter_size)
+    
+    def get_letter(self):
+        return alphabet[get_random(0, len(alphabet) - 1)]
+    
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def collision(self):
+        #print("Collision detected")
+        self.kill()
+
+    def update(self):
+        self.col_left = self.pos[0] - (letter_size / 2)
+        self.col_right = self.pos[0] + (letter_size / 2)
+        self.col_top = self.pos[1] - (letter_size / 2)
+        self.col_bot = self.pos[1] + (letter_size / 2)

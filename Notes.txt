@@ -1,0 +1,6 @@
+Contains anything that should be written down for future reference.
+
+#1 - To check for collision, maybe instead of searching if the pos of one object is overlapping that of the next object, I can write a system where the
+    positions of certain objects are stored and dynamically updated (as needed, like asteroids that spawn and later despawn, during its lifetime needing
+    to collide) and the main object (mostly just the player) can then go through all the pos values and if it does collide with one, it can pull up the obj.
+    This seems faster then going through a bunch of objects and their positions.
