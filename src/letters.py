@@ -1,27 +1,25 @@
 import pygame
 
 from get_random import get_random
-from constants import screen_width, screen_height
+from constants import screen_width, screen_height, ALPHABET
 
-alphabet = "abcdefghijklmnopqrstuvwxyz"
 letter_size = 40
 
 class Letter(pygame.sprite.Sprite):
-    def __init__(self, color):
+    def __init__(self, color, char):
         if hasattr(self, "containers"):
             super().__init__(self.containers)
         else:
             super().__init__()
-        self.letter = self.get_letter()
         self.color = color
-        self.pos = [get_random(0, screen_width), get_random(0, screen_height)]
+        self.char = char
+        self.pos = [get_random(0, screen_width - letter_size), get_random(0, screen_height - letter_size)]
         self.rect = pygame.rect.Rect(self.pos[0], self.pos[1], letter_size, letter_size)
-    
-    def get_letter(self):
-        return alphabet[get_random(0, len(alphabet) - 1)]
+        self.font = pygame.font.Font.render((pygame.font.SysFont("Arial", 48, bold=True)), self.char, 0, "white")
     
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
+        screen.blit((self.font), (self.pos[0], self.pos[1]))
 
     def collision(self):
         #print("Collision detected")
