@@ -68,10 +68,11 @@ while running:
     #This is where we spawn in more letters
     current_time = pygame.time.get_ticks()
     if current_time - last_spawn_time >= SPAWN_INTERVAL:
-        new_letter = Letter("blue", ALPHABET[get_random(0, len(ALPHABET) - 1)])
-        updatable_obj.add(new_letter)
-        drawable_obj.add(new_letter)
-        last_spawn_time = current_time
+        if len(updatable_obj) < 20:
+            new_letter = Letter("blue", ALPHABET[get_random(0, len(ALPHABET) - 1)], player.pos)
+            updatable_obj.add(new_letter)
+            drawable_obj.add(new_letter)
+            last_spawn_time = current_time
 
     keys = pygame.key.get_pressed()
 

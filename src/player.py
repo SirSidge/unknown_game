@@ -10,6 +10,12 @@ class Player(CircleShape):
         self.col_right = self.position[0] + PLAYER_RADIUS
         self.col_top = self.position[1] - PLAYER_RADIUS
         self.col_bot = self.position[1] + PLAYER_RADIUS
+        self.pos = {
+            "left": self.col_left,
+            "right": self.col_right,
+            "top": self.col_top,
+            "bot": self.col_bot,
+        }
 
     def draw(self, screen):
         pygame.draw.polygon(screen, "red", self.triangle())
@@ -44,3 +50,9 @@ class Player(CircleShape):
         self.col_right = self.position[0] + PLAYER_RADIUS
         self.col_top = self.position[1] - PLAYER_RADIUS
         self.col_bot = self.position[1] + PLAYER_RADIUS
+        self.pos = {
+            "left": self.col_left,
+            "right": self.col_right,
+            "top": self.col_top,
+            "bot": self.col_bot,
+        }
