@@ -13,11 +13,14 @@ class UI(pygame.sprite.Sprite):
         if len(self.letters) <= 16:
             self.letters += new_letter.char
         else:
-            self.letters = ""
+            self.letters = new_letter.char
 
     def draw(self, screen):
         self.word = pygame.font.Font.render((pygame.font.SysFont("Arial", 40, bold=False)), self.letters, 0, "green")
         screen.blit((self.word), self.pos)
 
-    def update():
-        pass
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_SPACE]:
+            self.letters = ""

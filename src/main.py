@@ -4,6 +4,7 @@ from constants import screen_height, screen_width, screen, ALPHABET
 from player import Player
 from letters import Letter
 from ui import UI
+from dictionary import Dictionary
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -17,7 +18,7 @@ drawable_obj = pygame.sprite.Group()
 
 Player.containers = (updatable_player, drawable_player)
 Letter.containers = (updatable_obj, drawable_obj)
-UI.containers = (drawable_player)
+UI.containers = (updatable_player, drawable_player)
 
 player = Player(screen_width / 2, screen_height / 2)
 ui = UI(screen_height)
@@ -42,6 +43,14 @@ def check_collision(self, obj2):
         and self.col_bot >= obj2.col_top):
         ui.letter_caught(obj2)
         obj2.collision()
+
+
+#================================================
+"""my_dict = Dictionary()
+my_dict.fetch_dictionary()
+my_dict.show_dict"""
+#================================================
+
 
 while running:
     for event in pygame.event.get():
