@@ -1,6 +1,7 @@
 import pygame
+
 from get_random import *
-from constants import screen_height, screen_width, screen, ALPHABET
+from constants import screen_height, screen_width, screen, ALPHABET, ALPHABET_SUM
 from player import Player
 from letters import Letter
 from ui import UI
@@ -78,10 +79,20 @@ while running:
     current_time = pygame.time.get_ticks()
     if current_time - last_spawn_time >= SPAWN_INTERVAL:
         if len(updatable_obj) < 20:
-            new_letter = Letter("blue", ALPHABET[get_random(0, len(ALPHABET) - 1)], player.pos)
+            random_alphabet = get_random(0, ALPHABET_SUM)
+            low = 0
+            high = 0
+            letter = ""
+            for key, value in ALPHABET.items():
+                low = high
+                high += value
+                if random_alphabet < high and random_alphabet > low:
+                    letter = key
+            new_letter = Letter("blue", letter, player.pos)
             updatable_obj.add(new_letter)
             drawable_obj.add(new_letter)
             last_spawn_time = current_time
+
 
     keys = pygame.key.get_pressed()
 
