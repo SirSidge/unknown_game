@@ -5,7 +5,6 @@ from constants import screen_height, screen_width, screen, ALPHABET, ALPHABET_SU
 from player import Player
 from letters import Letter
 from ui import UI
-from dictionary import Dictionary
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -24,10 +23,10 @@ UI.containers = (updatable_player, drawable_player)
 player = Player(screen_width / 2, screen_height / 2)
 ui = UI(screen_height)
 
-#Letter spawning info
+
 SPAWN_INTERVAL = 1000 # 1sec
 last_spawn_time = 0
-#letter = Letter("blue")
+
 
 background = pygame.image.load('./assets/space_wallpaper.png').convert()
 
@@ -44,13 +43,6 @@ def check_collision(self, obj2):
         and self.col_bot >= obj2.col_top):
         ui.letter_caught(obj2)
         obj2.collision()
-
-
-#================================================
-"""my_dict = Dictionary()
-my_dict.fetch_dictionary()
-my_dict.show_dict"""
-#================================================
 
 
 while running:
@@ -95,6 +87,12 @@ while running:
 
 
     keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_c]:
+        for item in updatable_obj:
+            item.kill()
+        for item in drawable_obj:
+            item.kill()
 
     if keys[pygame.K_ESCAPE]:
         pygame.QUIT
